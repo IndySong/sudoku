@@ -1,4 +1,21 @@
 assignments = []
+rows = 'ABCDEFGHI'
+cols = '123456789'
+
+def cross(A, B):
+    "Cross product of elements in A and elements in B."
+    return [s+t for s in A for t in B]
+
+boxes = cross(rows, cols)
+row_units = [cross(r, cols) for r in rows]
+column_units = [cross(rows, c) for c in cols]
+square_units = [cross(rs, cs) for rs in ('ABC','DEF','GHI')
+                for cs in ('123','456','789')]
+unitlist = row_units + column_units + square_units
+units = dict((s, [u for u in unitlist if s in u]) for s in boxes)
+peers = dict((s, set(sum(units[s],[]))-set([s])) for s in boxes)
+diag_boxes_lst = [[x + y for (x, y) in zip(rows, cols)], [x + y
+                  for (x, y) in zip(rows, cols[::-1])]]
 
 def assign_value(values, box, value):
     """
@@ -16,16 +33,28 @@ def assign_value(values, box, value):
     return values
 
 def naked_twins(values):
-    """Eliminate values using the naked twins strategy.
-    Args:
-        values(dict): a dictionary of the form {'box_name': '123456789', ...}
-
-    Returns:
-        the values dictionary with the naked twins eliminated from peers.
+    """
+    Eliminate values using the naked twins strategy.
+    Args: values(dict) - a dictionary of the form {'box_name': '123456789', ...}
+    Returns: the values dictionary with the naked twins eliminated from peers.
     """
 
     # Find all instances of naked twins
     # Eliminate the naked twins as possibilities for their peers
+    for unit in unitlist + diag_boxes_lst:
+        twins = set()
+        temp_dct = dict() #key: value of the box, value: box index
+        for box in unit:
+            if values[box] not in temp_dct:
+                temp_dct[values[box]] = [box]
+            else:
+                temp_dct[values[box]].append(box)
+        for key, value in temp_dct.items():
+            if len(value) > 1:
+                for box in unit:
+                    if box not in temp_dct[key]:
+                        values[box].replace(key, '')
+    return values
 
 def cross(A, B):
     "Cross product of elements in A and elements in B."
