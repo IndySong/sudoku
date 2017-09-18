@@ -88,7 +88,32 @@ def display(values):
     return
 
 def eliminate(values):
-    pass
+    """
+    Eliminate values from peers (including diagonal peers) of each box with a single value.
+
+    Go through all the boxes, and whenever there is a box with a single value,
+    eliminate this value from the set of values of all its peers.
+
+    In addition, whenever there is a box on the diagonals with a single value,
+    eliminate this value from the corresponding diagonal peers.
+
+    Moreover, eliminate values using naked twins strategy.
+
+    Args: values - Sudoku in dictionary form.
+    Returns: resulting Sudoku in dictionary form after eliminating values.
+    """
+    solved_values = [box for box in values.keys() if len(values[box]) == 1]
+    for solved_box in solved_values:
+        digit = values[solved_box]
+        for peer in peers[solved_box]:
+            values[peer] = values[peer].replace(digit, '')
+        for diag_boxes in diag_boxes_lst:
+            if solved_box in diag_boxes:
+                for diag_box in diag_boxes:
+                    if diag_box != solved_box:
+                        values[diag_box] = values[diag_box].replace(digit, '')
+
+    return naked_twins(values)
 
 def only_choice(values):
     pass
