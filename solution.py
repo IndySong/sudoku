@@ -116,7 +116,21 @@ def eliminate(values):
     return naked_twins(values)
 
 def only_choice(values):
-    pass
+    """
+    Finalize all values that are the only choice for a unit.
+
+    Go through all the units, and whenever there is a unit with a value
+    that only fits in one box, assign the value to this box.
+
+    Args: Sudoku in dictionary form.
+    Returns: Resulting Sudoku in dictionary form after filling in only choices.
+    """
+    for unit in unitlist:
+        for digit in '123456789':
+            potential_boxes = [box for box in unit if digit in values[box]]
+            if len(potential_boxes) == 1:
+                values[potential_boxes[0]] = digit
+    return values
 
 def reduce_puzzle(values):
     pass
