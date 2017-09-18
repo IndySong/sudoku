@@ -56,21 +56,22 @@ def naked_twins(values):
                         values[box].replace(key, '')
     return values
 
-def cross(A, B):
-    "Cross product of elements in A and elements in B."
-    pass
-
 def grid_values(grid):
     """
     Convert grid into a dict of {square: char} with '123456789' for empties.
-    Args:
-        grid(string) - A grid in string form.
-    Returns:
-        A grid in dictionary form
-            Keys: The boxes, e.g., 'A1'
-            Values: The value in each box, e.g., '8'. If the box has no value, then the value will be '123456789'.
+    Args: grid(string) - A grid in string form.
+    Returns: A grid in dictionary form
+             Keys: The boxes, e.g., 'A1'
+             Values: The value in each box, e.g., '8'. If the box has no value, then the value will be '123456789'.
     """
-    pass
+    values = []
+    all_digits = '123456789'
+    for c in grid:
+        if c == '.':
+            values.append(all_digits)
+        else:
+            values.append(c)
+    return dict(zip(boxes, values))
 
 def display(values):
     """
