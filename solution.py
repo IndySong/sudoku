@@ -62,7 +62,8 @@ def grid_values(grid):
     Args: grid(string) - A grid in string form.
     Returns: A grid in dictionary form
              Keys: The boxes, e.g., 'A1'
-             Values: The value in each box, e.g., '8'. If the box has no value, then the value will be '123456789'.
+             Values: The value in each box, e.g., '8'. If the box has no value,
+             then the value will be '123456789'.
     """
     values = []
     all_digits = '123456789'
@@ -89,7 +90,8 @@ def display(values):
 
 def eliminate(values):
     """
-    Eliminate values from peers (including diagonal peers) of each box with a single value.
+    Eliminate values from peers (including diagonal peers) of each box with a
+    single value.
 
     Go through all the boxes, and whenever there is a box with a single value,
     eliminate this value from the set of values of all its peers.
@@ -195,14 +197,17 @@ def solve(grid):
     """
     Find the solution to a Sudoku grid.
     Args: grid(string) - a string representing a sudoku grid.
-          Example: '2.............62....1....7...6..8...3...9...7...6..4...4....8....52.............3'
-    Returns: The dictionary representation of the final sudoku grid. False if no solution exists.
+          Example: '2.............62....1....7...6..8...3...9...7...6..4...4....
+                    8....52.............3'
+    Returns: The dictionary representation of the final sudoku grid. False if no
+             solution exists.
     """
     values = search(grid_values(grid))
     return values if values else False
 
 if __name__ == '__main__':
-    diag_sudoku_grid = '2.............62....1....7...6..8...3...9...7...6..4...4....8....52.............3'
+    diag_sudoku_grid = '2.............62....1....7...6..8...3...9...7...6..4...'
+                       '4....8....52.............3'
     display(solve(diag_sudoku_grid))
 
     try:
@@ -212,4 +217,5 @@ if __name__ == '__main__':
     except SystemExit:
         pass
     except:
-        print('We could not visualize your board due to a pygame issue. Not a problem! It is not a requirement.')
+        print('We could not visualize your board due to a pygame issue.'
+              'Not a problem! It is not a requirement.')
