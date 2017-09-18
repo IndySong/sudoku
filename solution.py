@@ -194,12 +194,12 @@ def search(values):
 def solve(grid):
     """
     Find the solution to a Sudoku grid.
-    Args:
-        grid(string): a string representing a sudoku grid.
-            Example: '2.............62....1....7...6..8...3...9...7...6..4...4....8....52.............3'
-    Returns:
-        The dictionary representation of the final sudoku grid. False if no solution exists.
+    Args: grid(string) - a string representing a sudoku grid.
+          Example: '2.............62....1....7...6..8...3...9...7...6..4...4....8....52.............3'
+    Returns: The dictionary representation of the final sudoku grid. False if no solution exists.
     """
+    values = search(grid_values(grid))
+    return values if values else False
 
 if __name__ == '__main__':
     diag_sudoku_grid = '2.............62....1....7...6..8...3...9...7...6..4...4....8....52.............3'
