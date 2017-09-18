@@ -134,7 +134,7 @@ def only_choice(values):
 
 def reduce_puzzle(values):
     """
-    Use Eliminate Strategy and Only Choice Strategy
+    Use Eliminate Strategy, Only Choice Strategy, & Naked Twins Strategy
 
     Args: Sudoku in dictionary form.
     Returns: Resulting Sudoku in dictionary form after eliminating invalid
@@ -164,7 +164,32 @@ def reduce_puzzle(values):
     return values
 
 def search(values):
-    pass
+    """
+    Using depth-first search and propagation, create a search tree and solve
+    the sudoku.
+    Args: Sudoku in dictionary form.
+    Returns: A solution of the Sudoku puzzle in dictionary form if it exists.
+             Otherwise, False.
+    """
+    # First, reduce the puzzle using the previous function
+    values = reduce_puzzle(values)
+    if not values:
+        return False ## Failed earlier
+    if all(len(values[box]) == 1 for box in boxes):
+        return values ## Solved!
+
+    # Choose one of the unfilled squares with the fewest possibilities
+    n, box = min((len(values[box]), box) for box in boxes
+                 if len(values[box]) > 1)
+
+    # Now use recursion to solve each one of the resulting sudokus,
+    # and if one returns a value (not False), return that answer!
+    for value in values[box]:
+        new_sudoku = values.copy()
+        new_sudoku[box] = value
+        attempt = search(new_sudoku)
+        if attempt:
+            return attempt
 
 def solve(grid):
     """
