@@ -53,7 +53,8 @@ def naked_twins(values):
             if len(value) > 1:
                 for box in unit:
                     if box not in temp_dct[key]:
-                        values[box].replace(key, '')
+                        for digit in key:
+                            values[box].replace(digit, '')
     return values
 
 def grid_values(grid):
