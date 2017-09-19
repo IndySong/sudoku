@@ -50,7 +50,7 @@ def naked_twins(values):
             else:
                 temp_dct[values[box]].append(box)
         for key, value in temp_dct.items():
-            if len(value) > 1:
+            if len(value) == 2 and len(key) == 2:
                 for box in unit:
                     if box not in temp_dct[key]:
                         for digit in key:
