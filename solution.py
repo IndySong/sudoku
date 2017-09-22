@@ -54,7 +54,8 @@ def naked_twins(values):
                 for box in unit:
                     if box not in temp_dct[key]:
                         for digit in key:
-                            values[box] = values[box].replace(digit, '')
+                            values = assign_value(values, box, \
+                                       values[box].replace(digit, ''))
     return values
 
 def grid_values(grid):
@@ -109,12 +110,14 @@ def eliminate(values):
     for solved_box in solved_values:
         digit = values[solved_box]
         for peer in peers[solved_box]:
-            values[peer] = values[peer].replace(digit, '')
+
+            values = assign_value(values, peer, values[peer].replace(digit, ''))
         for diag_boxes in diag_boxes_lst:
             if solved_box in diag_boxes:
                 for diag_box in diag_boxes:
                     if diag_box != solved_box:
-                        values[diag_box] = values[diag_box].replace(digit, '')
+                        values = assign_value(values, diag_box, \
+                                   values[diag_box].replace(digit, ''))
 
     return naked_twins(values)
 
@@ -132,7 +135,7 @@ def only_choice(values):
         for digit in '123456789':
             potential_boxes = [box for box in unit if digit in values[box]]
             if len(potential_boxes) == 1:
-                values[potential_boxes[0]] = digit
+                values = assign_value(values, potential_boxes[0], digit)
     return values
 
 def reduce_puzzle(values):
