@@ -16,7 +16,7 @@ A: First, when we execute elimination strategy, we should not only eliminate
    but also from diagonals if the box that we are analyzing is on the
    diagonals. Similarly, when we execute naked twins strategy, we also eliminate
    the possible values from peers in the corresponding rows, columns, square
-   units, and diagonals. 
+   units, and diagonals.
 
 ### Install
 
@@ -41,6 +41,8 @@ If not, please see how to download pygame [here](http://www.pygame.org/download.
 ### Visualizing
 
 To visualize your solution, please only assign values to the values_dict using the `assign_value` function provided in solution.py
+
+To run the simulation, please run solution.py
 
 ### Submission
 Before submitting your solution to a reviewer, you are required to submit your project to Udacity's Project Assistant, which will provide some initial feedback.  
